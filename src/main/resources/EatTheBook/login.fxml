@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="691.0" styleClass="login-form" stylesheets="@../../../../styles/loginDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatTheBook.Controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="691.0" styleClass="login-form" stylesheets="@loginDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatTheBook.Controllers.LoginController">
    <children>
-      <AnchorPane layoutX="102.0" layoutY="55.0" prefHeight="359.0" prefWidth="487.0" styleClass="card-form" stylesheets="@../../../../styles/loginDesign.css">
+      <AnchorPane layoutX="102.0" layoutY="55.0" prefHeight="359.0" prefWidth="487.0" styleClass="card-form" stylesheets="@loginDesign.css">
          <children>
             <FontAwesomeIcon fill="#f7f1f1" glyphName="USERS" layoutX="208.0" layoutY="104.0" size="5em" text="" textAlignment="CENTER" />
             <Label layoutX="204.0" layoutY="136.0" prefHeight="36.0" prefWidth="78.0" text="Login" textAlignment="CENTER" textFill="#fafafa">
@@ -17,17 +17,17 @@
                   <Font name="Microsoft Sans Serif" size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="nameField" layoutX="94.0" layoutY="182.0" prefHeight="30.0" prefWidth="305.0" promptText="Username" styleClass="textf" stylesheets="@../../../../styles/loginDesign.css" />
-            <TextField fx:id="passwordField" layoutX="91.0" layoutY="226.0" prefHeight="30.0" prefWidth="306.0" promptText="Password" styleClass="textf" stylesheets="@../../../../styles/loginDesign.css" />
-            <Button fx:id="loginBtn" layoutX="193.0" layoutY="273.0" mnemonicParsing="false" onAction="#HelloTest" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@../../../../styles/loginDesign.css" text="Login" textFill="#e4e3e3" />
+            <TextField fx:id="nameField" layoutX="94.0" layoutY="182.0" prefHeight="30.0" prefWidth="305.0" promptText="Username" styleClass="textf" stylesheets="@loginDesign.css" />
+            <TextField fx:id="passwordField" layoutX="91.0" layoutY="226.0" prefHeight="30.0" prefWidth="306.0" promptText="Password" styleClass="textf" stylesheets="@loginDesign.css" />
+            <Button fx:id="loginBtn" layoutX="193.0" layoutY="273.0" mnemonicParsing="false" onAction="#HelloTest" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" textFill="#e4e3e3" />
          </children>
       </AnchorPane>
-      <Button layoutX="634.0" layoutY="1.0" minWidth="35.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="54.0" style="-fx-cursor: hand;" styleClass="close" stylesheets="@../../../../styles/loginDesign.css" textFill="#f7f7f7">
+      <Button layoutX="634.0" layoutY="1.0" minWidth="35.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="54.0" style="-fx-cursor: hand;" styleClass="close" stylesheets="@loginDesign.css" textFill="#f7f7f7">
          <graphic>
             <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" selectionEnd="12" />
          </graphic>
       </Button>
-      <Button fx:id="minimizeBtn" layoutX="580.0" layoutY="1.0" mnemonicParsing="false" onAction="#minimize" prefHeight="26.0" prefWidth="54.0" styleClass="minimize" stylesheets="@../../../../styles/loginDesign.css" textFill="WHITE">
+      <Button fx:id="minimizeBtn" layoutX="580.0" layoutY="1.0" mnemonicParsing="false" onAction="#minimize" prefHeight="26.0" prefWidth="54.0" styleClass="minimize" stylesheets="@loginDesign.css" textFill="WHITE">
          <graphic>
             <FontAwesomeIcon fill="#faf6f6" glyphName="MINUS" />
          </graphic>

@@ -17,28 +17,28 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="986.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="106.0" prefWidth="986.0" styleClass="semiTop-form" stylesheets="@../../../../styles/dashboardDesign.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="106.0" prefWidth="986.0" styleClass="semiTop-form" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="39.0" prefWidth="986.0" styleClass="top-form" stylesheets="@../../../../styles/dashboardDesign.css" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="39.0" prefWidth="986.0" styleClass="top-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button layoutX="885.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" styleClass="minimize-btn" stylesheets="@../../../../styles/dashboardDesign.css">
+                        <Button layoutX="885.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="42.0" styleClass="minimize-btn" stylesheets="@dashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon glyphName="MINUS" />
                            </graphic>
                         </Button>
-                        <Button layoutX="935.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="43.0" styleClass="close-btn" stylesheets="@../../../../styles/dashboardDesign.css">
+                        <Button layoutX="935.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="43.0" styleClass="close-btn" stylesheets="@dashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon glyphName="CLOSE" />
                            </graphic>
                         </Button>
                      </children>
                   </AnchorPane>
-                  <Button layoutX="18.0" layoutY="59.0" mnemonicParsing="false" styleClass="bars" stylesheets="@../../../../styles/dashboardDesign.css" textAlignment="CENTER" AnchorPane.topAnchor="55.0">
+                  <Button layoutX="18.0" layoutY="59.0" mnemonicParsing="false" styleClass="bars" stylesheets="@dashboardDesign.css" textAlignment="CENTER" AnchorPane.topAnchor="55.0">
                      <graphic>
                         <FontAwesomeIcon glyphName="BARS" size="2em" textAlignment="CENTER" />
                      </graphic>
                   </Button>
-                  <Button layoutX="15.0" layoutY="55.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="42.0" styleClass="bars" stylesheets="@../../../../styles/dashboardDesign.css" textAlignment="CENTER" AnchorPane.topAnchor="55.0">
+                  <Button layoutX="15.0" layoutY="55.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="42.0" styleClass="bars" stylesheets="@dashboardDesign.css" textAlignment="CENTER" AnchorPane.topAnchor="55.0">
                      <graphic>
                         <FontAwesomeIcon glyphName="CHEVRON_LEFT" size="2em" />
                      </graphic>
@@ -52,7 +52,7 @@
             </AnchorPane>
          </top>
          <left>
-            <AnchorPane prefHeight="494.0" prefWidth="257.0" styleClass="nav-form" stylesheets="@../../../../styles/dashboardDesign.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="494.0" prefWidth="257.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane layoutX="36.0" layoutY="-1.0" prefHeight="494.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -72,17 +72,17 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="41.0" layoutY="239.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="174.0" styleClass="nav-btn" stylesheets="@../../../../styles/dashboardDesign.css" text="Available Books" textAlignment="CENTER" />
-                        <Button layoutX="42.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" styleClass="nav-btn" stylesheets="@../../../../styles/dashboardDesign.css" text="Users" textAlignment="CENTER" />
-                        <Button layoutX="43.0" layoutY="309.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" styleClass="nav-btn" stylesheets="@../../../../styles/dashboardDesign.css" text="Brow Books" textAlignment="CENTER" />
-                        <Button layoutX="43.0" layoutY="344.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" styleClass="nav-btn" stylesheets="@../../../../styles/dashboardDesign.css" text="Orders" textAlignment="CENTER" />
-                        <Button layoutX="54.0" layoutY="39.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="151.0" styleClass="edit-btn" stylesheets="@../../../../styles/dashboardDesign.css" textFill="WHITE">
+                        <Button layoutX="41.0" layoutY="239.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="174.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Available Books" textAlignment="CENTER" />
+                        <Button layoutX="42.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Users" textAlignment="CENTER" />
+                        <Button layoutX="43.0" layoutY="309.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Brow Books" textAlignment="CENTER" />
+                        <Button layoutX="43.0" layoutY="344.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="173.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Orders" textAlignment="CENTER" />
+                        <Button layoutX="54.0" layoutY="39.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="151.0" styleClass="edit-btn" stylesheets="@dashboardDesign.css" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="#fcfafa" glyphName="EDIT" size="2em" />
                            </graphic>
                         </Button>
                         <Line endX="153.99996948242188" layoutX="87.0" layoutY="222.0" startX="-75.69998168945312" stroke="#f7f3f3" />
-                        <Button layoutX="20.0" layoutY="436.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="logout-btn" stylesheets="@../../../../styles/dashboardDesign.css">
+                        <Button layoutX="20.0" layoutY="436.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="logout-btn" stylesheets="@dashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="1.5em" />
                            </graphic>
@@ -102,7 +102,7 @@
                <children>
                   <AnchorPane prefHeight="493.6" prefWidth="728.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane layoutX="238.0" layoutY="9.0" prefHeight="472.0" prefWidth="480.0" styleClass="card-form" stylesheets="@../../../../styles/dashboardDesign.css">
+                        <AnchorPane layoutX="238.0" layoutY="9.0" prefHeight="472.0" prefWidth="480.0" styleClass="card-form" stylesheets="@dashboardDesign.css">
                            <children>
                               <TableView layoutX="10.0" layoutY="9.0" prefHeight="450.0" prefWidth="464.0">
                                 <columns>
@@ -114,14 +114,14 @@
                               </TableView>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="8.0" layoutY="8.0" prefHeight="472.0" prefWidth="218.0" styleClass="card-form" stylesheets="@../../../../styles/dashboardDesign.css">
+                        <AnchorPane layoutX="8.0" layoutY="8.0" prefHeight="472.0" prefWidth="218.0" styleClass="card-form" stylesheets="@dashboardDesign.css">
                            <children>
-                              <AnchorPane layoutX="19.0" layoutY="14.0" prefHeight="155.0" prefWidth="174.0" styleClass="image-card" stylesheets="@../../../../styles/dashboardDesign.css">
+                              <AnchorPane layoutX="19.0" layoutY="14.0" prefHeight="155.0" prefWidth="174.0" styleClass="image-card" stylesheets="@dashboardDesign.css">
                                  <children>
                                     <ImageView fitHeight="171.0" fitWidth="178.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
-                              <Button layoutX="15.0" layoutY="307.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="74.0" styleClass="save-btn" stylesheets="@../../../../styles/dashboardDesign.css" text="Save" />
+                              <Button layoutX="15.0" layoutY="307.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="74.0" styleClass="save-btn" stylesheets="@dashboardDesign.css" text="Save" />
                               <Label alignment="CENTER" layoutX="25.0" layoutY="227.0" prefHeight="20.0" prefWidth="179.0" text="Programming lanaguage" textFill="#558e74">
                                  <font>
                                     <Font size="14.0" />
@@ -132,7 +132,7 @@
                                     <Font name="Microsoft Sans Serif" size="12.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="130.0" layoutY="307.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="74.0" styleClass="take-btn" stylesheets="@../../../../styles/dashboardDesign.css" text="Take" />
+                              <Button layoutX="130.0" layoutY="307.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="74.0" styleClass="take-btn" stylesheets="@dashboardDesign.css" text="Take" />
                            </children>
                         </AnchorPane>
                         <Separator layoutX="230.0" layoutY="10.0" orientation="VERTICAL" prefHeight="471.0" prefWidth="4.0" />
