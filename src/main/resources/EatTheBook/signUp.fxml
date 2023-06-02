@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="691.0" styleClass="login-form" stylesheets="@loginDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatTheBook.Controllers.SignUpController">
+    <children>
+        <AnchorPane layoutX="60.0" layoutY="27.0" prefHeight="420.0" prefWidth="570.0" styleClass="card-form" stylesheets="@loginDesign.css">
+            <children>
+                <FontAwesomeIcon fill="#f7f1f1" glyphName="USERS" layoutX="253.0" layoutY="65.0" size="5em" text="" textAlignment="CENTER" />
+                <Label alignment="CENTER" layoutX="215.0" layoutY="90.0" prefHeight="36.0" prefWidth="139.0" text="Sign Up" textAlignment="CENTER" textFill="#fafafa">
+                    <font>
+                        <Font name="Microsoft Sans Serif" size="30.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="nameField" layoutX="13.0" layoutY="146.0" prefHeight="32.0" prefWidth="243.0" promptText="Username" styleClass="textf" stylesheets="@loginDesign.css" />
+                <TextField fx:id="passwordField" layoutX="312.0" layoutY="146.0" prefHeight="32.0" prefWidth="243.0" promptText="Password" styleClass="textf" stylesheets="@loginDesign.css" />
+                <Button fx:id="createBtn" layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#createAccountfunc" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@loginDesign.css" text="Create Account" textFill="#e4e3e3" />
+                <Button fx:id="returnBtn" layoutX="441.0" layoutY="359.0" mnemonicParsing="false" onAction="#returnFunc" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@loginDesign.css" text="return" textFill="#e4e3e3" />
+            <TextField fx:id="EmailField" layoutX="14.0" layoutY="210.0" prefHeight="32.0" prefWidth="243.0" promptText="Email" styleClass="textf" stylesheets="@loginDesign.css" />
+            <TextField fx:id="AddressField" layoutX="14.0" layoutY="273.0" prefHeight="32.0" prefWidth="243.0" promptText="Address" styleClass="textf" stylesheets="@loginDesign.css" />
+            <TextField fx:id="PhoneField" layoutX="312.0" layoutY="209.0" prefHeight="32.0" prefWidth="243.0" promptText="Phone" styleClass="textf" stylesheets="@loginDesign.css" />
+            </children>
+        </AnchorPane>
+        <Button fx:id="exitBtn" layoutX="634.0" layoutY="1.0" minWidth="35.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="54.0" style="-fx-cursor: hand;" styleClass="close" stylesheets="@loginDesign.css" textFill="#f7f7f7">
+            <graphic>
+                <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" selectionEnd="12" />
+            </graphic>
+        </Button>
+        <Button fx:id="minimizeBtn" layoutX="580.0" layoutY="1.0" mnemonicParsing="false" onAction="#minimize" prefHeight="26.0" prefWidth="54.0" styleClass="minimize" stylesheets="@loginDesign.css" textFill="WHITE">
+            <graphic>
+                <FontAwesomeIcon fill="#faf6f6" glyphName="MINUS" />
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>

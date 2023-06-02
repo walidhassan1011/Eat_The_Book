@@ -1,44 +1,41 @@
 package EatTheBook.Models;
 
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+
 public class Order {
-        private String userAddress;
-        private String bookId;
-        private String bookName;
+
+
+        private ObjectId _id;
+        private Student student;
+        private ArrayList<Book> books;
 
         private Double price;
-        private String paymentMethod;
+        private Invoice invoice;
 
-        public Order(Student student,Book book ,Double price, String paymentMethod) {
-                this.userAddress = student.getAddress();
-
-                this.bookName = book.getBookName();
-
-                this.price = price;
-                this.paymentMethod = paymentMethod;
-        }
-
-    public String getUserAddress() {
-        return userAddress;
+    public ObjectId get_id() {
+        return _id;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void set_id(ObjectId _id) {
+        this._id = _id;
     }
 
-    public String getBookId() {
-        return bookId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getBookName() {
-        return bookName;
+    public ArrayList<Book> getBooks() {
+        return books;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
     }
 
     public Double getPrice() {
@@ -49,11 +46,22 @@ public class Order {
         this.price = price;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
+
+    public Order(Student student, ArrayList<Book> books, Double price, Invoice invoice) {
+            this.student = student;
+            this.books = books;
+            this.price = price;
+            this.invoice = invoice;
+            this._id = new ObjectId();
+        }
+        public Order(){
+
+        }
 }

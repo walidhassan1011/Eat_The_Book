@@ -19,7 +19,8 @@
             </Label>
             <TextField fx:id="nameField" layoutX="94.0" layoutY="182.0" prefHeight="30.0" prefWidth="305.0" promptText="Username" styleClass="textf" stylesheets="@loginDesign.css" />
             <TextField fx:id="passwordField" layoutX="91.0" layoutY="226.0" prefHeight="30.0" prefWidth="306.0" promptText="Password" styleClass="textf" stylesheets="@loginDesign.css" />
-            <Button fx:id="loginBtn" layoutX="193.0" layoutY="273.0" mnemonicParsing="false" onAction="#HelloTest" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" textFill="#e4e3e3" />
+            <Button fx:id="loginBtn" layoutX="100.0" layoutY="273.0" mnemonicParsing="false" onAction="#loginFunc" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@loginDesign.css" text="Login" textFill="#e4e3e3" />
+            <Button fx:id="loginBtn1" layoutX="272.0" layoutY="273.0" mnemonicParsing="false" onAction="#SignUpFunc" prefHeight="36.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="login-btn" stylesheets="@loginDesign.css" text="SignUp" textFill="#e4e3e3" />
          </children>
       </AnchorPane>
       <Button layoutX="634.0" layoutY="1.0" minWidth="35.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="54.0" style="-fx-cursor: hand;" styleClass="close" stylesheets="@loginDesign.css" textFill="#f7f7f7">

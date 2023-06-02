@@ -2,7 +2,7 @@ module com.example.eatthebook {
     requires javafx.controls;
     requires javafx.fxml;
     requires mongo.java.driver;
-
+   requires bcrypt;
 
     opens com.example.eatthebook to javafx.fxml;
     opens EatTheBook.Models to javafx.fxml;

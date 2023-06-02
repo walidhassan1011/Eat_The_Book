@@ -1,6 +1,14 @@
 package EatTheBook.Models;
 
-public class User {
+import EatTheBook.Helpers.AlertHandlerError;
+import EatTheBook.Helpers.IUser;
+import org.bson.types.ObjectId;
+
+import java.util.ArrayList;
+
+public class User implements IUser {
+
+    private ObjectId _id;
     private String username;
     private String password;
     private String email;
@@ -14,19 +22,19 @@ public class User {
 
 
     public User(String username, String password, String email, String phone, String address,String role) {
-        setUserNameAndPassword(username, password);
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.role = role;
+        this._id = new ObjectId();
     }
 
-    public User(String username, String password) {
-        setUserNameAndPassword(username, password);
 
-
+public void set_id(ObjectId _id) {
+        this._id = _id;
     }
-
     public String getEmail() {
         return email;
     }
@@ -73,14 +81,14 @@ public class User {
         return username;
     }
 
-   private void setUserNameAndPassword(String username, String password) {
-        if (username.length() < 6) {
-            throw new IllegalArgumentException("Username must be at least 6 characters long");
-        }
-        if (password.length() < 8) {
-            throw new IllegalArgumentException("Password must be at least 8 characters long");
-        }
+    public ObjectId get_id() {
+        return _id;
+    }
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -90,4 +98,14 @@ public class User {
 public String getRole() {
         return role;}
 
+
+    @Override
+    public void makeOrder(Book book, int quantity, Student student) {
+
     }
+
+    @Override
+    public void deleteOrder(ObjectId id) {
+
+    }
+}
