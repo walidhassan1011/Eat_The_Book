@@ -22,7 +22,7 @@ public class DB_helpers {
 
        public static MongoCollection getCollection(String collectionName){
             MongoClient mongoClient = new MongoClient("localhost", 27017);
-            MongoCollection collection = mongoClient.getDatabase("test").getCollection(collectionName);
+            MongoCollection collection = mongoClient.getDatabase("EatTheBook").getCollection(collectionName);
             return collection;
         }
 
