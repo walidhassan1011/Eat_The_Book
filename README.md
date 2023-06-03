@@ -4,6 +4,11 @@
 <h1>Eat the book</h1>
 
 <p ><strong >Eat the book</strong> is a library management system that help libraries to tottally manage and control the library </p>
+
+<hr>
+<h2>
+Note: I have spealing mistake in the project name it should be Borrow not brow (Lazy to change)
+</h2>
 <hr>
 <h1>technologies</h1>
 <ul>
