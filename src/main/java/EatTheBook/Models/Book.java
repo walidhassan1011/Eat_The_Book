@@ -109,6 +109,10 @@ public class Book implements IBook {
         return DB_Books_Controller.getBookByName(name);
     }
 
+    public static ArrayList<Book> getBrowedBooks(){
+        return DB_Books_Controller.getAllBrownBooks();
+    }
+
     public Book(String BookName, String Author, String category, String image, Double price, int quantity) {
 
         this.price = price;
@@ -117,7 +121,7 @@ public class Book implements IBook {
         this.Author = Author;
         this.category = category;
         this.image = image;
-        this.brown = false;
+
         this.createdDate = Date.from(LocalDate.now().atStartOfDay().toInstant(
                 java.time.ZoneOffset.UTC
         ));

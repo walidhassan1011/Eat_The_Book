@@ -65,6 +65,13 @@ public class SignUpController {
             AlertHandlerError.showAlert("Error", "Please enter a valid phone number", "error");
             return;
         }
+        // NO negative numbers
+        if (PhoneField.getText().contains("-")){
+            AlertHandlerError.showAlert("Error", "Please enter a valid phone number", "error");
+            return;
+        }
+
+
 
         if (nameField.getText().length() < 3 || passwordfield.getText().length() < 8 ){
             AlertHandlerError.showAlert("Error", "Username and password must be at least 3 characters", "Error");

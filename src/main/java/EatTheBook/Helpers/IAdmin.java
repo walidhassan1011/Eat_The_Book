@@ -16,6 +16,7 @@ public interface IAdmin {
     void deleteStudent(ObjectId id);
     void updateStudentOrders(Student student);
 void updateStudent(Student student);
+void updateStudentBrowed(Student student);
     void deleteBook(ObjectId id);
 
     void addBook(Book book);

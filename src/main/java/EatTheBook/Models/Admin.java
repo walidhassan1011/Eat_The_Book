@@ -46,6 +46,7 @@ public class Admin extends User implements IAdmin {
         DB_Users_Controller.createStudent(student);
     }
 
+
     @Override
     public void deleteStudent(ObjectId id) {
         DB_Users_Controller.deleteStudent(id);
@@ -59,6 +60,11 @@ public class Admin extends User implements IAdmin {
     @Override
     public void updateStudent(Student student) {
         DB_Users_Controller.updateStudent(student);
+    }
+
+    @Override
+    public void updateStudentBrowed(Student student) {
+        DB_Users_Controller.updateStudentBrowed(student);
     }
 
     @Override

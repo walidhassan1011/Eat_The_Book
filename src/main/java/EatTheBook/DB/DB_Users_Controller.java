@@ -76,6 +76,7 @@ public class DB_Users_Controller {
                             new Document("$push", new BasicDBObject("myorders", new Document("orderId", orders.get(0).get_id()).append("price",orders.get(0).getPrice())))
 
                     );
+                    updateStudent(student);
 
 
                         AlertSucc.showAlert("successfully","Student Updated Successfully","Student Updated Successfully");
@@ -255,7 +256,7 @@ public class DB_Users_Controller {
                         document.append("noOfBooksBrowed", student.getNoOfBooksBrowed());
                         document.append("Balance", student.getBalance());
 
-                        document.append("myorders", student.getMyorders());
+
                         document.append("studentNo", student.getStudentNo());
                         document.append("role", student.getRole());
 
@@ -284,7 +285,7 @@ public class DB_Users_Controller {
                     collection.updateOne(new Document("_id", student.get_id()), new Document("$push", new BasicDBObject("booksBrowed", new Document("BookId", booksBrowed.get(0).get_id()).append("price",booksBrowed.get(0).getPrice()).append(
                             "bookname",booksBrowed.get(0).getBookName()
                     ))) );
-
+                    updateStudent(student);
 
                 }
                 catch (Exception e){

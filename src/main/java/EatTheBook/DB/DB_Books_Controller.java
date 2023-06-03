@@ -61,11 +61,19 @@ public class DB_Books_Controller {
         try{
             MongoCollection collection = DB_helpers.getCollection("Books");
             ArrayList<Book> books = new ArrayList<Book>();
-            collection.find().forEach((Consumer<? super Document>) document -> {
-                Book book = new Book(document.getString("BookName"), document.getString("Author"), document.getString("category"), document.getString("image"), document.getDouble("price")
-                        , document.getInteger("quantity"));
+            // get all books from the database with  quantity > 0
+            collection.find(new Document("quantity", new Document("$gt", 0)
+                    )).forEach((Consumer<? super Document>) document -> {
+                Book book = new Book();
                 book.set_id(document.getObjectId("_id"));
-                book.setCreatedDate( document.getDate("createdDate"));
+                book.setBookName(document.getString("BookName"));
+                book.setAuthor(document.getString("Author"));
+                book.setCategory(document.getString("category"));
+                book.setImage(document.getString("image"));
+                book.setBrown(document.getBoolean("brown"));
+                book.setCreatedDate(document.getDate("createdDate"));
+                book.setPrice(document.getDouble("price"));
+                book.setQuantity(document.getInteger("quantity"));
                 books.add(book);
             });
             return books;
@@ -86,7 +94,7 @@ public class DB_Books_Controller {
         try {
             MongoCollection collection = DB_helpers.getCollection("Books");
             Book book = new Book();
-            System.out.println(id);
+
             // find book by id
 
             Document document = (Document) collection.find(new Document("_id", id)).first();
@@ -148,11 +156,15 @@ public class DB_Books_Controller {
             try {
                 MongoCollection collection = DB_helpers.getCollection("Books");
                 ArrayList<Book> books = new ArrayList<Book>();
-                collection.find(new Document("brown", true)).forEach((Consumer<? super Document>) document -> {
+                collection.find(
+                        new Document("quantity", new Document("$gt", 0)
+
+                )).forEach((Consumer<? super Document>) document -> {
                     Book book = new Book(document.getString("BookName"), document.getString("Author"), document.getString("category"), document.getString("image"),document.getDouble("price"),
                             document.getInteger("quantity")
 
                     );
+                    book.setBrown(document.getBoolean("brown"));
                     book.set_id(document.getObjectId("_id"));
                     book.setCreatedDate(document.getDate("createdDate"));
                     books.add(book);
@@ -251,5 +263,7 @@ public class DB_Books_Controller {
 
         }
     }
+
+
 
 }

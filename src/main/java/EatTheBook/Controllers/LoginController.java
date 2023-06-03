@@ -1,5 +1,6 @@
 package EatTheBook.Controllers;
 
+import EatTheBook.Context.ContextApi;
 import EatTheBook.DB.DB_EatTheBook_Controller;
 import EatTheBook.Helpers.AlertHandlerError;
 import EatTheBook.Helpers.Navigator;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -28,7 +30,7 @@ public class LoginController {
     private TextField nameField;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordfield;
 
     @FXML
     void SignUpFunc(ActionEvent event) throws IOException {
@@ -46,14 +48,22 @@ public class LoginController {
 
     @FXML
     void loginFunc(ActionEvent event) {
-        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty()){
+        if (nameField.getText().isEmpty() || passwordfield.getText().isEmpty()){
              AlertHandlerError.showAlert("Error", "Please fill all the fields", "error");
             return;
         }
-        EatTheBook.login(nameField.getText(), passwordField.getText());
-        // close the current window
-        Scene scene = loginBtn.getScene();
-        scene.getWindow().hide();
+
+
+            EatTheBook.login(nameField.getText(), passwordfield.getText());
+        ContextApi context = ContextApi.getInstance();
+        if(context.getCurrentAdmin()!=null) {
+        loginBtn.getScene().getWindow().hide();
+        }
+
+
+
+
+
 
 
     }

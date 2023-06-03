@@ -3,6 +3,8 @@ package EatTheBook.Controllers;
 import EatTheBook.Context.ContextApi;
 import EatTheBook.DB.DB_Books_Controller;
 import EatTheBook.Helpers.AlertHandlerError;
+import EatTheBook.Helpers.AlertSucc;
+import EatTheBook.Helpers.Navigator;
 import EatTheBook.Models.*;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -12,9 +14,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -310,8 +314,55 @@ public class DashboardController implements Initializable {
     private TableColumn<Book,Double> price_brow;
 
 
-    ContextApi contextApi = ContextApi.getInstance();
 
+    @FXML
+    private Button Brow_btn;
+
+
+    @FXML
+    private Label invoice_invoiceId;
+
+    @FXML
+    private ImageView invoice_logo;
+
+    @FXML
+    private TextArea invoice_order;
+
+    @FXML
+    private Label invoice_order_id;
+
+    @FXML
+    private Label invoice_total_cost;
+    @FXML
+    private Label brow_author;
+
+    @FXML
+    private Label brow_category;
+
+    @FXML
+    private Label brow_price;
+
+    @FXML
+    private AnchorPane invoice_Frame;
+
+    @FXML
+    private Label brow_title;
+
+
+    ContextApi contextApi = ContextApi.getInstance();
+    @FXML
+    void Signout_func(ActionEvent event) {
+
+
+        try
+        {
+            contextApi.clearContext();
+            Navigator.NavigateTo( "login.fxml", "Login",691, 469);
+            logout_btn.getScene().getWindow().hide();
+        }catch (Exception e){
+            AlertHandlerError.showAlert("Error", "Something went wrong", "error");
+        }
+    }
     @FXML
     void QuantityUpdate(
             TableColumn.CellEditEvent<Book, Integer> event
@@ -325,6 +376,11 @@ public class DashboardController implements Initializable {
         // check if the new value is null
         if (newValue == null) {
             AlertHandlerError.showAlert("Error", "Please enter a quantity", "Please enter a quantity");
+            return;
+        }
+        // if number is negative
+        if (newValue < 0) {
+            AlertHandlerError.showAlert("Error", "Please enter a valid quantity", "Please enter a valid quantity");
             return;
         }
         // check if the new value is a number
@@ -345,10 +401,19 @@ Book_Table.setEditable(true);
         Book book = Book_Table.getSelectionModel().getSelectedItem();
         // get the new value
         Double newValue = event.getNewValue();
-        System.out.println(newValue);
+            // check if the new value is number
+        if (newValue.isNaN()) {
+            AlertHandlerError.showAlert("Error", "Please enter a valid price", "Please enter a valid price");
+            return;
+        }
         // check if the new value is null
         if (newValue == null) {
             AlertHandlerError.showAlert("Error", "Please enter a price", "Please enter a price");
+            return;
+        }
+        // check if the new value is a number is negative
+        if (newValue < 0) {
+            AlertHandlerError.showAlert("Error", "Please enter a valid price", "Please enter a valid price");
             return;
         }
         // check if the new value is a number
@@ -384,7 +449,7 @@ Book_Table.setEditable(true);
             AlertHandlerError.showAlert("Error", "Please fill all the fields", "Please fill all the fields");
             return;
         }
-        String hashPassword= BCrypt.hashpw("123456", BCrypt.gensalt());
+        String hashPassword= BCrypt.hashpw("12345678", BCrypt.gensalt());
             Student student = new Student(
                     add_name.getText(),
         hashPassword,
@@ -486,7 +551,13 @@ Book_Table.setEditable(true);
         String price = add_price.getText();
         String quantity =add_quantity.getText();
         //convert the quantity to int
-        int quantity_int = Integer.parseInt(quantity);
+        int quantity_int;
+        try{
+             quantity_int = Integer.parseInt(quantity);
+        }catch (NumberFormatException e){
+            AlertHandlerError.showAlert("Error", "Please enter a valid quantity", "Please enter a valid quantity");
+            return;
+        }
 
         if (title.isEmpty() || author.isEmpty() || category.isEmpty() || price.isEmpty()) {
             AlertHandlerError.showAlert("Error", "Please fill all the fields", "Please fill all the fields");
@@ -500,8 +571,20 @@ Book_Table.setEditable(true);
             AlertHandlerError.showAlert("Error", "Please enter a valid quantity", "Please enter a valid quantity");
             return;
         }
+        // check negative values
+        if (quantity_int < 0) {
+            AlertHandlerError.showAlert("Error", "Please enter a valid quantity", "Please enter a valid quantity");
+            return;
+        }
+
+
+
         // convert the price to double
         double price_double = Double.parseDouble(price);
+        if (price_double < 0) {
+            AlertHandlerError.showAlert("Error", "Please enter a valid price", "Please enter a valid price");
+            return;
+        }
         // create a new book object
         Book book = new Book(title,author,category,"www.google.com",price_double,quantity_int);
 
@@ -567,6 +650,7 @@ Book_Table.setEditable(true);
         Brow_Book_Frame.setVisible(false);
         Orders_Frame.setVisible(false);
         Users_Frame.setVisible(false);
+        invoice_Frame.setVisible(false);
 
     }
     @FXML
@@ -576,6 +660,75 @@ Book_Table.setEditable(true);
         Brow_Book_Frame.setVisible(true);
         Orders_Frame.setVisible(false);
         Users_Frame.setVisible(false);
+        invoice_Frame.setVisible(false);
+        // get all books and display them in the table
+        ArrayList<Book> books = Book.getBrowedBooks();
+
+        BookName_brow.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("BookName"));
+        author_brow.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("Author"));
+        category_brow.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("category"));
+        price_brow.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,Double>("price"));
+        Brown_brow.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,Boolean>("brown"));
+        ObservableList<Book> list = FXCollections.observableArrayList(books);
+        brow_table.setItems(list);
+
+
+
+    }
+    @FXML
+    void getBrow_book(MouseEvent event) {
+        // select books in the table and display them in the text fields
+        Book selectedBook = brow_table.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            brow_title.setText(selectedBook.getBookName());
+            brow_author.setText(selectedBook.getAuthor());
+            brow_category.setText(selectedBook.getCategory());
+            brow_price.setText(String.valueOf(selectedBook.getPrice()));
+        }
+
+    }
+
+    @FXML
+    void add_new_brow(ActionEvent event) {
+        // get the selected book and the student number from the text field and add the book to the student's browed books list in the database and update the table
+        Book selectedBook = brow_table.getSelectionModel().getSelectedItem();
+        String studentNo = Brow_studentNo.getText();
+        if (selectedBook == null) {
+            AlertHandlerError.showAlert("Error", "Please select a book", "Please select a book");
+            return;
+        }
+        if (studentNo.equals("")) {
+            AlertHandlerError.showAlert("Error", "Please enter a student number", "Please enter a student number");
+            return;
+        }
+        // convert the student number to integer
+        try {
+            int studentNo_int = Integer.parseInt(studentNo);
+        } catch (Exception e) {
+            AlertHandlerError.showAlert("Error", "Please enter a valid student number", "Please enter a valid student number");
+            return;
+        }
+        // update brown status in the database
+        selectedBook.setBrown(true);
+        // update quantity in the database
+        selectedBook.setQuantity(selectedBook.getQuantity() - 1);
+        contextApi.getCurrentAdmin().updateBook(selectedBook);
+        // get the student from the database
+        Student student = contextApi.getCurrentAdmin().getStudentByStudentNo(studentNo);
+        // add the book to the student's browed books list in the database
+        ArrayList<Book> browedBooks = student.getBooksBrowed();
+        browedBooks.add(0,selectedBook);
+        student.setBooksBrowed(browedBooks);
+        student.setNoOfBooksBrowed(student.getNoOfBooksBrowed() + 1);
+        // update the student in the database
+        contextApi.getCurrentAdmin().updateStudentBrowed(student);
+        contextApi.getCurrentAdmin().updateStudent(student);
+        // update the table
+       ArrayList<Book> books= Book.getBrowedBooks();
+        ObservableList<Book> list = FXCollections.observableArrayList(books);
+        brow_table.setItems(list);
+        // display a success message
+        AlertSucc.showAlert("Success", "Book added successfully", "Book added successfully");
     }
 
     @FXML
@@ -585,6 +738,7 @@ Book_Table.setEditable(true);
         Brow_Book_Frame.setVisible(false);
         Orders_Frame.setVisible(true);
         Users_Frame.setVisible(false);
+        invoice_Frame.setVisible(false);
         // get all orders and display them in the table
         ArrayList<Order> orders = contextApi.getCurrentAdmin().getOrders();
         // add orders to the table view (table) in the dashboard page (Orders_Frame) in the title column (OrderID_Tab)
@@ -653,11 +807,33 @@ Book_Table.setEditable(true);
 //        BookName_order.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,String>("bookName"));
             ObservableList<Order> list = FXCollections.observableArrayList(orders);
             Order_table.setItems(list);
-            // clear the cart and the total price and the student number
-            order.clearOrder();
-            TotalPrice.setText("");
-            StudentNo_order.setText("");
-            totalPrice=0.0;
+        TotalPrice.setText("");
+        StudentNo_order.setText("");
+            // make invoice frame visible and the other frames invisible
+            invoice_Frame.setVisible(true);
+            Available_Books_Frame.setVisible(false);
+            Brow_Book_Frame.setVisible(false);
+            Orders_Frame.setVisible(false);
+            Users_Frame.setVisible(false);
+            // display logo in the invoice frame from URL
+            invoice_logo.setImage(
+                    new Image("https://user-images.githubusercontent.com/95965261/234280247-5cecb0dc-e42a-46b5-ac86-d7fdd15dad81.png")
+            );
+
+            // display order details in the invoice frame
+            invoice_order_id.setText(order.get_id().toString());
+            invoice_invoiceId.setText(invoinceId.toString());
+            // display every book in the order in the text area in the invoice frame
+            for (Book book : order.getBooks()) {
+            invoice_order.appendText(book.getBookName() + "\n");
+            }
+
+            // display the total price in the invoice frame
+            invoice_total_cost.setText(order.getPrice().toString());
+        // clear the cart and the total price and the student number
+        order.clearOrder();
+
+        totalPrice=0.0;
         // clear cart table
         Cart_Table.getItems().clear();
 
@@ -713,7 +889,7 @@ Book_Table.setEditable(true);
             order.setPrice(totalPrice);
             order.setStudentNo(studentNo_int);
             order.set_id(new ObjectId());
-System.out.println(order.getBooks().get(0).getBookName());
+
             // clear the text fields
             bookName_order.setText("");
 
@@ -745,12 +921,17 @@ System.out.println(order.getBooks().get(0).getBookName());
     void delete_iten_func(ActionEvent event) {
        // get the selected Book
         Book selectedOrder = Cart_Table.getSelectionModel().getSelectedItem();
+        // check if the selected order is null
+        if (selectedOrder == null) {
+            AlertHandlerError.showAlert("Error", "Please select an order", "Please select an order");
+            return;
+        }
         // update the price
-        System.out.println(selectedOrder.getPrice());
+
         totalPrice -= selectedOrder.getPrice();
         Double price = order.getPrice() - selectedOrder.getPrice();
         order.setPrice(price);
-        System.out.println(order.getPrice());
+
         // update the books
         order.getBooks().remove(selectedOrder);
         // update the total price
@@ -775,7 +956,7 @@ System.out.println(order.getBooks().get(0).getBookName());
         // get the new value
 
         Double newBalance = event.getNewValue();
-        System.out.println(newBalance);
+
         // get the selected user
         Student selectedStudent = User_Frame_tab.getSelectionModel().getSelectedItem();
         // check if the new balance is null
