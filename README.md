@@ -7,7 +7,7 @@
 
 <hr>
 <h2>
-Note: I have spealing mistake in the project name it should be Borrow not brow (Lazy to change)
+Note: I have spealing mistake in the project it should be Borrow not brow (Lazy to change)
 </h2>
 <hr>
 <h1>technologies</h1>
@@ -110,10 +110,5 @@ Note: I have spealing mistake in the project name it should be Borrow not brow (
 <hr/>
 <h1>Take a look on the UML diragram </h1>
 <img src="https://github.com/walidhassan1011/Eat_The_Book/assets/95965261/dd63c8b5-dec1-43b5-8743-a4777a76d47e" alt="uml"/>
-<a
-  href="https://lucid.app/lucidchart/8c174a76-1458-42ad-835f-2cd753b2ae4e/edit?viewport_loc=-1135%2C906%2C2846%2C1281%2C0_0&invitationId=inv_f6dfbadd-bf57-4b77-9cc0-1d39f6bfb868"
-  >
-  <h2>
-    TAKE A LOOK ON THE UML
-  </h2>
-  </a>
+
+## [Take a Look On the UML](https://lucid.app/lucidchart/8c174a76-1458-42ad-835f-2cd753b2ae4e/edit?viewport_loc=-1135%2C906%2C2846%2C1281%2C0_0&invitationId=inv_f6dfbadd-bf57-4b77-9cc0-1d39f6bfb868)
