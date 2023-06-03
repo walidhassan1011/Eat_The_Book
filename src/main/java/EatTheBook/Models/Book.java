@@ -46,23 +46,7 @@ public class Book implements IBook {
         this.price = price;
     }
 
-    public Book(String BookName, String Author, String category, String image, Double price, int quantity) {
 
-        this.price = price;
-        this.quantity = quantity;
-        this.BookName = BookName;
-        this.Author = Author;
-        this.category = category;
-        this.image = image;
-        this.brown = false;
-        this.createdDate = Date.from(LocalDate.now().atStartOfDay().toInstant(
-                java.time.ZoneOffset.UTC
-        ));
-        this._id = new ObjectId();
-    }
-    public Book(){
-
-    }
     public String getBookName() {
         return BookName;
     }
@@ -118,7 +102,29 @@ public class Book implements IBook {
         return DB_Books_Controller.getBookById(id);
     }
 
+    public static void addBook(Book book){
+        DB_Books_Controller.addBook(book);
+    }
+    public static Book getBookByName(String name){
+        return DB_Books_Controller.getBookByName(name);
+    }
 
+    public Book(String BookName, String Author, String category, String image, Double price, int quantity) {
 
+        this.price = price;
+        this.quantity = quantity;
+        this.BookName = BookName;
+        this.Author = Author;
+        this.category = category;
+        this.image = image;
+        this.brown = false;
+        this.createdDate = Date.from(LocalDate.now().atStartOfDay().toInstant(
+                java.time.ZoneOffset.UTC
+        ));
+        this._id = new ObjectId();
+    }
+    public Book(){
+
+    }
 
 }

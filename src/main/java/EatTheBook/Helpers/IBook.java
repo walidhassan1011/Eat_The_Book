@@ -12,4 +12,7 @@ public interface IBook {
         return null;
     }
 
+    static Book getBookByName(String name){
+        return null;
+    }
 }

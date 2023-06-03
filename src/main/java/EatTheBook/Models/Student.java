@@ -8,26 +8,12 @@ public class Student  extends User {
     private Double Balance;
 private ArrayList<Book> booksBrowed;
 private ArrayList<Order> myorders;
-    private int noOfBooksBrowed;
-    private int noOfBooksBuy;
-    private int noOfBooksReturned;
+    private int noOfBooksBrowed=0;
+    private int noOfBooksBuy=0;
+    private int noOfBooksReturned=0;
     private String studentNo;
 
-    public ArrayList<Book> getBooksBrowed() {
-        return booksBrowed;
-    }
 
-    public void setBooksBrowed(ArrayList<Book> booksBrowed) {
-        this.booksBrowed = booksBrowed;
-    }
-
-    public ArrayList<Order> getMyorders() {
-        return myorders;
-    }
-
-    public void setMyorders(ArrayList<Order> myorders) {
-        this.myorders = myorders;
-    }
 
     public Double getBalance() {
         return Balance;
@@ -70,6 +56,22 @@ private ArrayList<Order> myorders;
 
     public void setStudentNo(String studentNo) {
         this.studentNo = studentNo;
+    }
+
+    public ArrayList<Book> getBooksBrowed() {
+        return booksBrowed;
+    }
+
+    public void setBooksBrowed(ArrayList<Book> booksBrowed) {
+        this.booksBrowed = booksBrowed;
+    }
+
+    public ArrayList<Order> getMyorders() {
+        return myorders;
+    }
+
+    public void setMyorders(ArrayList<Order> myorders) {
+        this.myorders = myorders;
     }
 
     public Student (String username, String password, String email, String phone, String address, String role, Double Balance

@@ -1,6 +1,8 @@
 package EatTheBook.Models;
 
 import EatTheBook.DB.DB_Books_Controller;
+import EatTheBook.DB.DB_Invoice_Controller;
+import EatTheBook.DB.DB_Order_Controller;
 import EatTheBook.DB.DB_Users_Controller;
 import EatTheBook.Helpers.IAdmin;
 import org.bson.types.ObjectId;
@@ -35,6 +37,11 @@ public class Admin extends User implements IAdmin {
     }
 
     @Override
+    public Student getStudentByStudentNo(String studentNo) {
+        return DB_Users_Controller.getStudentByStudentNo(studentNo);
+    }
+
+    @Override
     public void addStudent(Student student) {
         DB_Users_Controller.createStudent(student);
     }
@@ -42,6 +49,11 @@ public class Admin extends User implements IAdmin {
     @Override
     public void deleteStudent(ObjectId id) {
         DB_Users_Controller.deleteStudent(id);
+    }
+
+    @Override
+    public void updateStudentOrders(Student student) {
+        DB_Users_Controller.updateStudentOrders(student);
     }
 
     @Override
@@ -62,6 +74,51 @@ public class Admin extends User implements IAdmin {
     @Override
     public void updateBook(Book book) {
         DB_Books_Controller.updateBook(book);
+    }
+
+    @Override
+    public void updateOrder(ObjectId id) {
+
+    }
+
+    @Override
+    public void addOrder(Order order) {
+        DB_Order_Controller.addOrder(order);
+    }
+
+    @Override
+    public ArrayList<Order> getOrders() {
+        return DB_Order_Controller.getOrders();
+    }
+
+    @Override
+    public Order getOrder(ObjectId id) {
+        return DB_Order_Controller.getOrderById(id);
+    }
+
+    @Override
+    public void deleteInvoice(ObjectId id) {
+
+    }
+
+    @Override
+    public void updateInvoice(ObjectId id) {
+
+    }
+
+    @Override
+    public ObjectId addInvoice(Invoice invoice) {
+       return DB_Invoice_Controller.addInvoice(invoice);
+    }
+
+    @Override
+    public ArrayList<Invoice> getInvoices() {
+        return null;
+    }
+
+    @Override
+    public Invoice getInvoice(ObjectId id) {
+        return null;
     }
 
 }

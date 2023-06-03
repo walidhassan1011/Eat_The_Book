@@ -9,8 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.mindrot.bcrypt.BCrypt;
 
 public class SignUpController {
 
@@ -19,6 +22,12 @@ public class SignUpController {
 
     @FXML
     private TextField EmailField;
+
+    @FXML
+    private RadioButton Female_Radio;
+
+    @FXML
+    private RadioButton Male_Radio;
 
     @FXML
     private TextField PhoneField;
@@ -36,21 +45,33 @@ public class SignUpController {
     private TextField nameField;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordfield;
 
     @FXML
     private Button returnBtn;
     @FXML
     void createAccountfunc(ActionEvent event) {
-        if (nameField.getText().isEmpty() || passwordField.getText().isEmpty() || EmailField.getText().isEmpty() || PhoneField.getText().isEmpty() || AddressField.getText().isEmpty()){
+        if (nameField.getText().isEmpty() || passwordfield.getText().isEmpty() || EmailField.getText().isEmpty() || PhoneField.getText().isEmpty() || AddressField.getText().isEmpty()){
             AlertHandlerError.showAlert("Error", "Please fill all the fields", "error");
             return;
         }
-        if (nameField.getText().length() < 3 || passwordField.getText().length() < 3 ){
+        // check email
+        if (!EmailField.getText().contains("@") || !EmailField.getText().contains(".")){
+            AlertHandlerError.showAlert("Error", "Please enter a valid email", "error");
+            return;
+        }
+        // check phone
+        if (PhoneField.getText().length() != 11){
+            AlertHandlerError.showAlert("Error", "Please enter a valid phone number", "error");
+            return;
+        }
+
+        if (nameField.getText().length() < 3 || passwordfield.getText().length() < 8 ){
             AlertHandlerError.showAlert("Error", "Username and password must be at least 3 characters", "Error");
             return;
         }
-            EatTheBook.register(nameField.getText(), passwordField.getText(), EmailField.getText(), PhoneField.getText(), AddressField.getText(), "Student");
+
+            EatTheBook.register(nameField.getText(),passwordfield.getText() , EmailField.getText(), PhoneField.getText(), AddressField.getText(), "Admin");
         // close the current window
         Scene scene = createBtn.getScene();
         scene.getWindow().hide();

@@ -8,11 +8,19 @@ public class Order {
 
 
         private ObjectId _id;
-        private Student student;
-        private ArrayList<Book> books;
+        private Integer studentNo;
+        private ArrayList<Book> books=new ArrayList<>();
 
-        private Double price;
-        private Invoice invoice;
+        private Double price=0.0;
+        private ObjectId invoiceId;
+
+    public ObjectId getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(ObjectId invoiceId) {
+        this.invoiceId = invoiceId;
+    }
 
     public ObjectId get_id() {
         return _id;
@@ -22,12 +30,13 @@ public class Order {
         this._id = _id;
     }
 
-    public Student getStudent() {
-        return student;
+
+    public Integer getStudentNo() {
+        return studentNo;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentNo(Integer studentNo) {
+        this.studentNo = studentNo;
     }
 
     public ArrayList<Book> getBooks() {
@@ -35,7 +44,15 @@ public class Order {
     }
 
     public void setBooks(ArrayList<Book> books) {
-        this.books = books;
+       this.books = books;
+
+
+    }
+
+    public void clearOrder(){
+        this.books.clear();
+        this.price=0.0;
+
     }
 
     public Double getPrice() {
@@ -46,19 +63,13 @@ public class Order {
         this.price = price;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
-    }
 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
 
-    public Order(Student student, ArrayList<Book> books, Double price, Invoice invoice) {
-            this.student = student;
+    public Order(Integer studentNo, ArrayList<Book> books, Double price, ObjectId invoice) {
+            this.studentNo = studentNo;
             this.books = books;
             this.price = price;
-            this.invoice = invoice;
+            this.invoiceId = invoice;
             this._id = new ObjectId();
         }
         public Order(){

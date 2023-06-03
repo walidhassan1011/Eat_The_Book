@@ -2,46 +2,30 @@ package EatTheBook.Models;
 
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+
 public class Invoice {
     private ObjectId _id;
-    private ObjectId userId;
-    private ObjectId bookId;
-    private Book book;
+    private Integer studentNo;
+    private ArrayList<String> booksName=new ArrayList<>();
+    private Double price;
 
-    private User user;
-
-
-
-    public ObjectId getUserId() {
-        return userId;
+    public ObjectId getOrderId() {
+        return orderId;
     }
 
-    public void setUserId(ObjectId userId) {
-        this.userId = userId;
+    public void setOrderId(ObjectId orderId) {
+        this.orderId = orderId;
     }
 
-    public ObjectId getBookId() {
-        return bookId;
+    private ObjectId orderId;
+
+    public ArrayList<String> getBooksName() {
+        return booksName;
     }
 
-    public void setBookId(ObjectId bookId) {
-        this.bookId = bookId;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setBooksName(ArrayList<String> booksName) {
+        this.booksName = booksName;
     }
 
     public ObjectId get_id() {
@@ -52,12 +36,30 @@ public class Invoice {
         this._id = _id;
     }
 
-    public Invoice(ObjectId invoiceId, ObjectId userId, ObjectId bookId, Book book, User user) {
-        this._id = invoiceId;
-        this.userId = userId;
-        this.bookId = bookId;
-        this.book = book;
-        this.user = user;
+    public Integer getStudentNo() {
+        return studentNo;
     }
+
+    public void setStudentNo(Integer studentNo) {
+        this.studentNo = studentNo;
+    }
+
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Invoice( Integer studentNo, ArrayList<String> BooksName, Double price, ObjectId orderId) {
+        this._id = new ObjectId();
+        this.studentNo = studentNo;
+        this.booksName = BooksName;
+        this.price = price;
+        this.orderId = orderId;
+    }
+    public Invoice(){}
 
 }

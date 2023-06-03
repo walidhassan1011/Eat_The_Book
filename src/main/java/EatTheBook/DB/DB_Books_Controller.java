@@ -23,6 +23,7 @@ public class DB_Books_Controller {
         try{
             MongoCollection collection = DB_helpers.getCollection("Books");
             // check if the book is already exist
+            System.out.println(book.get_id());
             if(getBookById(book.get_id()) != null) {
                 AlertHandlerError.showAlert("Error", "Book already exist", "Book already exist");
                 throw new RuntimeException("Book already exist");
@@ -44,7 +45,7 @@ public class DB_Books_Controller {
 
         }   catch (Exception e){
             AlertHandlerError.showAlert("Error", "Error while adding new book", "Error while adding new book");
-            throw new RuntimeException("Error while adding new book");
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -85,19 +86,23 @@ public class DB_Books_Controller {
         try {
             MongoCollection collection = DB_helpers.getCollection("Books");
             Book book = new Book();
-            collection.find(
-                    new Document("_id", id)
-            ).forEach((Consumer<? super Document>) document -> {
-                book.setBookName(document.getString("BookName"));
-                book.setAuthor(document.getString("Author"));
-                book.setCategory(document.getString("category"));
-                book.setImage(document.getString("image"));
-                book.setBrown(document.getBoolean("brown"));
-                book.set_id(document.getObjectId("_id"));
-                book.setCreatedDate(document.getDate("createdDate"));
-                book.setPrice(document.getDouble("price"));
-                book.setQuantity(document.getInteger("quantity"));
-            });
+            System.out.println(id);
+            // find book by id
+
+            Document document = (Document) collection.find(new Document("_id", id)).first();
+            if(document == null){
+                return null;
+            }
+            book.set_id(document.getObjectId("_id"));
+            book.setBookName(document.getString("BookName"));
+            book.setAuthor(document.getString("Author"));
+            book.setCategory(document.getString("category"));
+            book.setImage(document.getString("image"));
+            book.setBrown(document.getBoolean("brown"));
+            book.setCreatedDate(document.getDate("createdDate"));
+            book.setPrice(document.getDouble("price"));
+            book.setQuantity(document.getInteger("quantity"));
+
             return book;
         } catch (Exception e) {
             throw new RuntimeException("Error while getting book");
@@ -214,6 +219,36 @@ public class DB_Books_Controller {
             );
         } catch (Exception e) {
             throw new RuntimeException("Error while updating book");
+        }
+    }
+    /**
+    *   @desc: this function is used to get book by name from the database
+    *  @param: String
+     *  @return: Book
+     *  @example: getBookByName(String);
+    * */
+
+    public static Book getBookByName(String name) {
+        try {
+            MongoCollection collection = DB_helpers.getCollection("Books");
+            Book book = new Book();
+            collection.find(
+                    new Document("BookName", name)
+            ).forEach((Consumer<? super Document>) document -> {
+                book.setBookName(document.getString("BookName"));
+                book.setAuthor(document.getString("Author"));
+                book.setCategory(document.getString("category"));
+                book.setImage(document.getString("image"));
+                book.setBrown(document.getBoolean("brown"));
+                book.set_id(document.getObjectId("_id"));
+                book.setCreatedDate(document.getDate("createdDate"));
+                book.setPrice(document.getDouble("price"));
+                book.setQuantity(document.getInteger("quantity"));
+            });
+            return book;
+        } catch (Exception e) {
+            throw new RuntimeException("Error while getting book");
+
         }
     }
 

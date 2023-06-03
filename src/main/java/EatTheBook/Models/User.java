@@ -1,5 +1,7 @@
 package EatTheBook.Models;
 
+import EatTheBook.DB.DB_Order_Controller;
+import EatTheBook.DB.DB_Users_Controller;
 import EatTheBook.Helpers.AlertHandlerError;
 import EatTheBook.Helpers.IUser;
 import org.bson.types.ObjectId;
@@ -106,6 +108,6 @@ public String getRole() {
 
     @Override
     public void deleteOrder(ObjectId id) {
-
+        DB_Order_Controller.deleteOrder(id);
     }
 }

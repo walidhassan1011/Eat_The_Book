@@ -3,10 +3,7 @@ package EatTheBook.Controllers;
 import EatTheBook.Context.ContextApi;
 import EatTheBook.DB.DB_Books_Controller;
 import EatTheBook.Helpers.AlertHandlerError;
-import EatTheBook.Models.Book;
-import EatTheBook.Models.Order;
-import EatTheBook.Models.Student;
-import EatTheBook.Models.User;
+import EatTheBook.Models.*;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -26,12 +23,15 @@ import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.bson.types.ObjectId;
+import org.mindrot.bcrypt.BCrypt;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
+
     @FXML
     private Button Add_btn;
 
@@ -167,7 +167,7 @@ public class DashboardController implements Initializable {
 
 
     @FXML
-    private TableView<Book> Book_Table2;
+    private TableView<Order> Order_table;
 
     @FXML
     private TableColumn<Student,Integer> Bookbuy_tab;
@@ -234,6 +234,82 @@ public class DashboardController implements Initializable {
     @FXML
     private TableColumn<Student,String> studentNo_Tab;
 
+
+
+
+    @FXML
+    private TableView<Book> Cart_Table;
+
+
+
+    @FXML
+    private Button Delete_item;
+
+
+
+    @FXML
+    private TableColumn<Order,Integer> OrderNo;
+
+
+    @FXML
+    private Label TotalPrice;
+    @FXML
+    private TableColumn<Order,Double> PriceOrder;
+
+
+    @FXML
+    private TableColumn<Book,Double> Price_Cart;
+
+    @FXML
+    private Button add_order;
+
+
+    @FXML
+    private Button delete_Order;
+
+
+    @FXML
+    private TableColumn<Book,String> BookName_Cart;
+
+    @FXML
+    private TableColumn<Book,String> BookName_brow;
+
+
+
+    @FXML
+    private TextField Brow_studentNo;
+
+    @FXML
+    private TableColumn<Book,Boolean> Brown_brow;
+
+
+
+
+
+
+    @FXML
+    private Button add_brow;
+
+
+    @FXML
+    private TableColumn<Book,String> author_brow;
+
+
+
+    @FXML
+    private TableView<Book> brow_table;
+
+
+
+    @FXML
+    private TableColumn<Book,String> category_brow;
+
+
+
+    @FXML
+    private TableColumn<Book,Double> price_brow;
+
+
     ContextApi contextApi = ContextApi.getInstance();
 
     @FXML
@@ -288,8 +364,16 @@ Book_Table.setEditable(true);
             contextApi.getCurrentAdmin().updateBook(book);
 
     }
+    Order order = new Order();
     @FXML
     void deleteOrder_func(ActionEvent event) {
+        Order order = Order_table.getSelectionModel().getSelectedItem();
+        if (order == null) {
+            AlertHandlerError.showAlert("Error", "Please select an order", "Please select an order");
+            return;
+        }
+        contextApi.getCurrentAdmin().deleteOrder(order.get_id());
+        Order_table.getItems().removeAll(order);
 
     }
     ArrayList<Student> Students = contextApi.getCurrentAdmin().getStudents();
@@ -300,9 +384,10 @@ Book_Table.setEditable(true);
             AlertHandlerError.showAlert("Error", "Please fill all the fields", "Please fill all the fields");
             return;
         }
+        String hashPassword= BCrypt.hashpw("123456", BCrypt.gensalt());
             Student student = new Student(
                     add_name.getText(),
-        "123456",
+        hashPassword,
                     add_email.getText(),
                     add_phone.getText(),
         add_address.getText(),
@@ -324,10 +409,7 @@ Book_Table.setEditable(true);
 
     }
 
-    @FXML
-    void add_order_func(ActionEvent event) {
 
-    }
 
     @FXML
     void deleteUser_func(ActionEvent event) {
@@ -422,6 +504,7 @@ Book_Table.setEditable(true);
         double price_double = Double.parseDouble(price);
         // create a new book object
         Book book = new Book(title,author,category,"www.google.com",price_double,quantity_int);
+
         // add the book to the database
         contextApi.getCurrentAdmin().addBook(book);
         // clear the text fields
@@ -442,10 +525,15 @@ Book_Table.setEditable(true);
 
 
     }
+
     @FXML
     void deleteBook_func(ActionEvent event) {
         // get the selected book
         Book selectedBook = Book_Table.getSelectionModel().getSelectedItem();
+        if (selectedBook == null) {
+            AlertHandlerError.showAlert("Error", "Please select a book", "Please select a book");
+            return;
+        }
         // delete the book from the database
         contextApi.getCurrentAdmin().deleteBook(selectedBook.get_id());
         // update the table
@@ -497,7 +585,188 @@ Book_Table.setEditable(true);
         Brow_Book_Frame.setVisible(false);
         Orders_Frame.setVisible(true);
         Users_Frame.setVisible(false);
+        // get all orders and display them in the table
+        ArrayList<Order> orders = contextApi.getCurrentAdmin().getOrders();
+        // add orders to the table view (table) in the dashboard page (Orders_Frame) in the title column (OrderID_Tab)
+        OrderNo_order.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,ObjectId>("_id"));
+        PriceOrder.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,Double>("price"));
+        OrderNo.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,Integer>("studentNo"));
+//        BookName_order.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,String>("bookName"));
+        ObservableList<Order> list = FXCollections.observableArrayList(orders);
+        Order_table.setItems(list);
 
+
+    }
+    Double totalPrice = 0.0;
+    Student student = new Student();
+    @FXML
+    void add_order_func(ActionEvent event) {
+        // check if order is empty
+        if (order.getBooks().isEmpty()) {
+            AlertHandlerError.showAlert("Error", "Please add books to the order", "Please add books to the order");
+            return;
+        }
+
+        // create a new Invoice object of the current order
+        Invoice invoice=new Invoice();
+
+        invoice.set_id(new ObjectId());
+        invoice.setPrice(Double.parseDouble(TotalPrice.getText()));
+        invoice.setStudentNo(order.getStudentNo());
+        invoice.setOrderId(order.get_id());
+        ArrayList<String> booksName=new ArrayList<>();
+        for(Book book:order.getBooks()){
+            booksName.add(book.getBookName());
+        }
+
+        invoice.setBooksName(booksName);
+        // add the invoice to the database
+        ObjectId invoinceId = contextApi.getCurrentAdmin().addInvoice(invoice);
+
+        order.setInvoiceId(invoinceId);
+            // update book quantity
+            for (Book book : order.getBooks()) {
+                book.setQuantity(book.getQuantity() - 1);
+                System.out.println(book.getQuantity());
+                contextApi.getCurrentAdmin().updateBook(book);
+            }
+        // add order to the database and update the table
+
+        contextApi.getCurrentAdmin().addOrder(order);
+        // update students orders ArrayList
+        System.out.println(order.get_id());
+        ArrayList<Order> studentOrders = student.getMyorders();
+        studentOrders.add(0,order);
+
+        student.setMyorders(studentOrders);
+
+        // update student noOfbooksBuy
+        student.setNoOfBooksBuy(student.getNoOfBooksBuy() + order.getBooks().size());
+        // update student total money spent
+        contextApi.getCurrentAdmin().updateStudentOrders(student);
+        // update the table
+        ArrayList<Order> orders = contextApi.getCurrentAdmin().getOrders();
+        // add orders to the table view (table) in the dashboard page (Orders_Frame) in the title column (OrderID_Tab)
+        OrderNo_order.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,ObjectId>("_id"));
+        PriceOrder.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,Double>("price"));
+        OrderNo.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,Integer>("studentNo"));
+//        BookName_order.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Order,String>("bookName"));
+            ObservableList<Order> list = FXCollections.observableArrayList(orders);
+            Order_table.setItems(list);
+            // clear the cart and the total price and the student number
+            order.clearOrder();
+            TotalPrice.setText("");
+            StudentNo_order.setText("");
+            totalPrice=0.0;
+        // clear cart table
+        Cart_Table.getItems().clear();
+
+
+
+    }
+    ArrayList<Book> orderBooks = new ArrayList<>();
+
+    @FXML
+    void add_order_cart(ActionEvent event) {
+
+        // get the BookName from the text field and student number from the text field and the price from the text field
+        String bookName = bookName_order.getText();
+        String studentNo = StudentNo_order.getText();
+
+        System.out.println(bookName);
+        // check if the book name is empty or the student number is empty or the price is empty
+        if (bookName.isEmpty() || studentNo.isEmpty() ) {
+            AlertHandlerError.showAlert("Error", "Please fill all the fields", "Please fill all the fields");
+            return;
+        }
+        // check if the student is exist
+        student=contextApi.getCurrentAdmin().getStudentByStudentNo(studentNo);
+        if (student == null) {
+            AlertHandlerError.showAlert("Error", "This student is not exist", "This student is not exist");
+            return;
+        }
+
+
+
+        // convert the student number to integer and the price to double
+        int studentNo_int = Integer.parseInt(studentNo);
+
+        // create a new order object
+
+        Book book = new Book();
+
+
+       book=Book.getBookByName(bookName);
+       if (book.getQuantity()<=0){
+           AlertHandlerError.showAlert("Error", "This book is not available", "This book is not available");
+           return;
+       }
+
+
+         // add the book with the old books in the orderBooks arraylist
+            orderBooks.add(book);
+
+            System.out.println(orderBooks.size());
+       // add book in arraylist of books in order and price and sudentNo
+            order.setBooks(orderBooks);
+            totalPrice += book.getPrice();
+            order.setPrice(totalPrice);
+            order.setStudentNo(studentNo_int);
+            order.set_id(new ObjectId());
+System.out.println(order.getBooks().get(0).getBookName());
+            // clear the text fields
+            bookName_order.setText("");
+
+
+            // add the bookName retuned from the function getBookByName to the table view cart
+
+
+
+            // add the order to table view cart
+            Price_Cart.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,Double>("price"));
+            BookName_Cart.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("bookName"));
+
+            // add the order to the table view
+            Cart_Table.getItems().add(book);
+            // convert the price to string
+            String price = String.valueOf(order.getPrice());
+            // display the price in the text field
+            TotalPrice.setText(price);
+
+
+
+
+
+    }
+
+
+
+    @FXML
+    void delete_iten_func(ActionEvent event) {
+       // get the selected Book
+        Book selectedOrder = Cart_Table.getSelectionModel().getSelectedItem();
+        // update the price
+        System.out.println(selectedOrder.getPrice());
+        totalPrice -= selectedOrder.getPrice();
+        Double price = order.getPrice() - selectedOrder.getPrice();
+        order.setPrice(price);
+        System.out.println(order.getPrice());
+        // update the books
+        order.getBooks().remove(selectedOrder);
+        // update the total price
+        TotalPrice.setText(String.valueOf(order.getPrice()));
+        // update the order
+        order.setBooks(order.getBooks());
+        // update the order
+        order.setPrice(order.getPrice());
+        // update the order
+        order.setStudentNo(order.getStudentNo());
+        // update the order
+        order.set_id(order.get_id());
+        // update the order
+        order.setInvoiceId(order.getInvoiceId());
+        // remove the order from the table view
+        Cart_Table.getItems().remove(selectedOrder);
     }
     @FXML
     void UpdateBlance(
@@ -506,6 +775,7 @@ Book_Table.setEditable(true);
         // get the new value
 
         Double newBalance = event.getNewValue();
+        System.out.println(newBalance);
         // get the selected user
         Student selectedStudent = User_Frame_tab.getSelectionModel().getSelectedItem();
         // check if the new balance is null
@@ -519,7 +789,7 @@ Book_Table.setEditable(true);
             return;
         }
         // check if the new balance is not a number
-        if (!newBalance.toString().matches("[0-9]+")) {
+        if (newBalance.isNaN()) {
             AlertHandlerError.showAlert("Error", "Please enter a valid balance", "Please enter a valid balance");
             return;
         }
@@ -576,26 +846,28 @@ Book_Table.setEditable(true);
 
 
 
-//              try
-//              {
-//                  Book_Table.setEditable(true);
-//                  // make the balance column editable
-//                  Price_Tab.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-//                  Quantity_Tab.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-//                    userName.setText(contextApi.getCurrentUser()!=null?contextApi.getCurrentUser().getStudentNo(): contextApi.getCurrentAdmin().getUsername());
-//
-//                  BookTitle_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("BookName"));
-//                  author_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("Author"));
-//                  category_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("Category"));
-//                Price_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("Price"));
-//                Quantity_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("quantity"));
-//
-//
-//
-//                    Book_Table.setItems(list);
-//              }catch (Exception e){
-//                  System.out.println(e);
-//              }
+              try
+              {
+                  Book_Table.setEditable(true);
+                  // make the balance column editable
+                  Price_Tab.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+                  Quantity_Tab.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+                    userName.setText(contextApi.getCurrentUser()!=null?contextApi.getCurrentUser().getStudentNo(): contextApi.getCurrentAdmin().getUsername());
+            books = Book.getBooks();
+            list = FXCollections.observableArrayList(books);
+
+                  BookTitle_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("BookName"));
+                  author_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("Author"));
+                  category_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<Book,String>("Category"));
+                Price_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("Price"));
+                Quantity_Tab.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("quantity"));
+
+
+
+                    Book_Table.setItems(list);
+              }catch (Exception e){
+                  System.out.println(e);
+              }
 //         add all books in the database to the tree view table
         // get all books from the database
 
@@ -611,4 +883,6 @@ Book_Table.setEditable(true);
 
 
     }
+
+
 }

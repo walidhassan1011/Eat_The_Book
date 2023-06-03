@@ -30,18 +30,17 @@ public class EatTheBook {
     public static void  register(String username, String password, String email, String phone, String address, String role) {
        try
        {
-           DB_EatTheBook_Controller.CreateAccount(new Student(
-                   username,
-                   password,
-                   email,
-                   phone,
-                   address,
-                   role,
-                   0.0,
-                   0,
-                   0,
-                   0
-           ));
+           DB_EatTheBook_Controller.CreateAccount(
+                   new Admin(
+                            username,
+                           password,
+                            email,
+                            phone,
+                            address,
+                            role,
+                            "10000"
+                   )
+           );
        }
        catch (Exception e)
        {

@@ -70,32 +70,29 @@ public class DB_EatTheBook_Controller {
      *
     * */
 
-    public static void CreateAccount(Student student){
+    public static void CreateAccount(Admin admin){
         try{
             MongoCollection collection = DB_helpers.getCollection("Users");
 
-            if (checkUser(student.getStudentNo())){
+            if (checkUser(admin.getUsername())){
 
                 AlertHandlerError.showAlert("Error", "User already exists", "Please try again");
                 return;
             }
 
 
-            String haspass= BCrypt.hashpw(student.getPassword(), BCrypt.gensalt());
+            String haspass= BCrypt.hashpw(admin.getPassword(), BCrypt.gensalt());
 
-            collection.insertOne(new Document("name",student.getUsername())
+            collection.insertOne(new Document("name",admin.getUsername())
                     .append("password", haspass)
-                    .append("email", student.getEmail())
-                    .append("phone", student.getPhone())
-                    .append("address", student.getAddress())
-                    .append("role", student.getRole())
-                    .append("Balance", (Double)student.getBalance())
-                    .append("noOfBooksBrowed", student.getNoOfBooksBrowed())
-                    .append("noOfBooksBuy", student.getNoOfBooksBuy())
+                    .append("email", admin.getEmail())
+                    .append("phone", admin.getPhone())
+                    .append("address", admin.getAddress())
+                    .append("role", admin.getRole())
+                            .append("salary", admin.getSalary())
+
                     .append("_id", new ObjectId())
-                    .append("studentNo", student.getStudentNo())
-                    .append("booksBrowed", student.getBooksBrowed())
-                    .append("myorders", student.getMyorders())
+
 
 
             );
