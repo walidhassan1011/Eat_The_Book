@@ -7,7 +7,7 @@
 
 <hr>
 <h2>
-Note: I have spealing mistake in the project it should be Borrow not brow (Lazy to change)
+Note: I have spelling mistake in the project it should be Borrow not brow (Lazy to change)
 </h2>
 <hr>
 <h1>technologies</h1>
